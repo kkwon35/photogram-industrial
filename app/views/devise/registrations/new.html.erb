@@ -1,29 +1,103 @@
-<h2>Sign up</h2>
+<!--<div class="row mb-0">
+  <div class="col-md-6 offset-md-3">
+  </div>
+</div>-->
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="row">
+  <div class="offset-md-3 col-md-6">
+    <div class="card mb-3">
+      <h5 class="card-header">
+        User Sign Up
+      </h5>
+
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "mb-3", novalidate: true }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="form-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, class: "form-control", autofocus: true %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password %>
+            <%= f.password_field :password, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :username %>
+            <%= f.text_field :username, class: "form-control", placeholder: "Enter username" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: "form-control", placeholder: "Enter name" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :avatar_image %>
+            <%= f.text_field :avatar_image, class: "form-control", placeholder: "Enter avatar image", value: "avatar_placeholder.png" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :bio %>
+            <%= f.text_field :bio, class: "form-control", placeholder: "Enter bio" %>
+          </div>
+
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <%= f.check_box :private, class: "custom-control-input", checked: true %>
+              <%= f.label :private, class: "custom-control-label" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :website %>
+            <%= f.text_field :website, class: "form-control", placeholder: "Enter website" %>
+          </div>
+
+          <%= f.submit "Create User", class: "btn btn-outline-primary btn-block" %>
+
+          <hr>
+
+          <%= link_to "Log in", new_session_path(resource_name) %><br />
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<h2>User Sign Up</h2>
+
+<%#= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>-->
+  <%#= render "devise/shared/error_messages", resource: resource %>
+<!--
+  <div class="field">
+    <%#= f.label :email %><br />-->
+    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<!--  </div>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <%#= f.label :password %>-->
+    <%# if @minimum_password_length %>
+<!--    <em>(<%#= @minimum_password_length %> characters minimum)</em>-->
+    <%# end %><!--<br />-->
+    <%#= f.password_field :password, autocomplete: "new-password" %>
+<!--  </div>
 
   <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <%#= f.label :password_confirmation %><br />-->
+    <%#= f.password_field :password_confirmation, autocomplete: "new-password" %>
+<!--  </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    <%#= f.submit "Sign up" %>-->
+<!--  </div>-->
+<%# end %>
+<!---->
+<%#= render "devise/shared/links" %>
