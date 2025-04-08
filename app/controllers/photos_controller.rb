@@ -8,6 +8,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/1 or /photos/1.json
   def show
+    @user = @photo.owner
   end
 
   # GET /photos/new
@@ -22,10 +23,11 @@ class PhotosController < ApplicationController
   # POST /photos or /photos.json
   def create
     @photo = Photo.new(photo_params)
+    @photo.owner = current_user
 
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to @photo, notice: "Photo was successfully created." }
+        format.html { redirect_to @photo, notice: "Photo was successfully created" }
         format.json { render :show, status: :created, location: @photo }
       else
         format.html { render :new, status: :unprocessable_entity }

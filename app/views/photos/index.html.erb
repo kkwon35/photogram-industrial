@@ -1,16 +1,50 @@
-<!--<p style="color: green"><%#= notice %></p>-->
+<h1>Photos</h1>
 
-<% content_for :title, "Photos" %>
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Comments count</th>
+      <th>Likes count</th>
+      <th>Caption</th>
+      <th>Owner</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
+  <tbody>
+    <% @photos.each do |photo| %>
+      <tr>
+        <td><%= photo.image_url %></td>
+        <td><%= photo.comments_count %></td>
+        <td><%= photo.likes_count %></td>
+        <td><%= photo.caption %></td>
+        <td><%= photo.owner_id %></td>
+
+        <td><%= link_to "Show", photo_path(photo) %></td>
+        <td><%= link_to "Edit", edit_photo_path(photo) %></td>
+        <td><%= link_to "Destroy", photo_path(photo), method: :delete, data: { confirm: "Are you sure?" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to "New Photo", new_photo_path %>
+
+<%# content_for :title, "Photos" %>
+<!--
 <h1>Photos</h1>
 
 <div id="photos">
-  <% @photos.each do |photo| %>
-    <%= render photo %>
-    <p>
-      <%= link_to "Show this photo", photo %>
-    </p>
-  <% end %>
-</div>
+  <%# @photos.each do |photo| %>-->
+    <%#= render photo %>
+<!--    <p>-->
+      <%#= link_to "Show this photo", photo %>
+<!--    </p>-->
+  <%# end %>
+<!--</div>
 
-<%= link_to "New photo", new_photo_path %>
+<%#= link_to "New photo", new_photo_path %>-->
+<!---->

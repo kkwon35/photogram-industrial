@@ -1,10 +1,34 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+      <%= render "users/user", user: @user %>
+    </div>
+  </div>
 
-<%= render @photo %>
+  <div class="row mb-2">
+    <div class="col-md-6 offset-md-3">
+      <%= render "users/profile_nav", user: @user %>
+    </div>
+  </div>
 
-<div>
-  <%= link_to "Edit this photo", edit_photo_path(@photo) %> |
-  <%= link_to "Back to photos", photos_path %>
-
-  <%= button_to "Destroy this photo", @photo, method: :delete %>
+  <% @user.own_photos.each do |photo| %>
+    <div class="row mb-4">
+      <div class="col-md-6 offset-md-3">
+        <%= render "photos/photo", photo: photo %>
+      </div>
+    </div>
+  <% end %>
 </div>
+
+<%#= render "photos/photo", photo: @photo %>
+
+<!--<p style="color: green"><%#= notice %></p>
+
+<%#= render @photo %>-->
+<!--
+<div>
+  <%#= link_to "Edit this photo", edit_photo_path(@photo) %> |-->
+  <%#= link_to "Back to photos", photos_path %>
+<!---->
+  <%#= button_to "Destroy this photo", @photo, method: :delete %>
+<!--</div>-->

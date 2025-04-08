@@ -52,4 +52,12 @@ class User < ApplicationRecord
   has_many :discover, -> { distinct }, through: :leaders, source: :liked_photos
 
   validates :username, presence: true, uniqueness: true
+
+  def pending
+    sent_follow_requests.where(status: "pending").map(&:recipient)
+  end
+
+  def pending_received_follow_requests
+    received_follow_requests.where(status: "pending")
+  end
 end
