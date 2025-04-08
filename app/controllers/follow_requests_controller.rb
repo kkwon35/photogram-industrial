@@ -1,4 +1,5 @@
 class FollowRequestsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_follow_request, only: %i[ show edit update destroy ]
 
   # GET /follow_requests or /follow_requests.json
@@ -23,10 +24,16 @@ class FollowRequestsController < ApplicationController
   def create
     @follow_request = FollowRequest.new(follow_request_params)
     @follow_request.sender = current_user
+    recipient = @follow_request.recipient
+
+    # Automatically accept if recipient is public; else mark as pending
+    #@follow_request.status = recipient.private? ? "pending" : "accepted"
+    @follow_request.status = @follow_request.recipient.private? ? "pending" : "accepted"
+
 
     respond_to do |format|
       if @follow_request.save
-        format.html { redirect_to @follow_request, notice: "Follow request was successfully created." }
+        format.html { redirect_to user_path(recipient), notice: "Follow request was successfully created." }
         format.json { render :show, status: :created, location: @follow_request }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +49,8 @@ class FollowRequestsController < ApplicationController
         format.html { redirect_to @follow_request, notice: "Follow request was successfully updated." }
         format.json { render :show, status: :ok, location: @follow_request }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        #format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @follow_request.errors, status: :unprocessable_entity }
       end
     end
@@ -50,10 +58,11 @@ class FollowRequestsController < ApplicationController
 
   # DELETE /follow_requests/1 or /follow_requests/1.json
   def destroy
+    recipient = @follow_request.recipient
     @follow_request.destroy!
 
     respond_to do |format|
-      format.html { redirect_to follow_requests_path, status: :see_other, notice: "Follow request was successfully destroyed." }
+      format.html { redirect_to user_path(recipient), status: :see_other, notice: "Follow request was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -61,7 +70,8 @@ class FollowRequestsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_follow_request
-      @follow_request = FollowRequest.find(params.expect(:id))
+      #@follow_request = FollowRequest.find(params.expect(:id))
+      @follow_request = FollowRequest.find(params.fetch(:id))
     end
 
     # Only allow a list of trusted parameters through.
